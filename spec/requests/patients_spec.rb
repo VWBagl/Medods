@@ -4,7 +4,6 @@ RSpec.describe 'Patients API', type: :request do
   let!(:doctor1) { Doctor.create!(first_name: 'Алексей', last_name: 'Сидоров', middle_name: 'Петрович') }
   let!(:doctor2) { Doctor.create!(first_name: 'Мария', last_name: 'Иванова', middle_name: 'Сергеевна') }
   
-  # Используем уникальные данные для каждого запуска
   let!(:patient) do
     Patient.create!(
       first_name: 'Тест',

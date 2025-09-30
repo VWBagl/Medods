@@ -1,19 +1,15 @@
-# app/models/bmr_calculation.rb
 class BmrCalculation < ApplicationRecord
   belongs_to :patient
 
-  # Убираем уникальность - разрешаем multiple расчеты одной формулы
   validates :formula, presence: true
   validates :result, numericality: { greater_than: 0 }
-
-  # Убираем before_validation - расчет будет в контроллере
 
   # Методы расчета выносим в классовые методы
   def self.calculate_bmr(patient, formula_name)
     case formula_name.to_s.downcase
-    when 'mifflin_st_jeor', 'миффлина-сан жеора'
+    when 'mifflin_st_jeor'
       calculate_mifflin_st_jeor(patient)
-    when 'harris_benedict', 'харриса-бенедикта'
+    when 'harris_benedict'
       calculate_harris_benedict(patient)
     else
       raise ArgumentError, "Unsupported formula: #{formula_name}"
@@ -24,8 +20,6 @@ class BmrCalculation < ApplicationRecord
     [
       'mifflin_st_jeor',
       'harris_benedict', 
-      'миффлина-сан жеора',
-      'харриса-бенедикта'
     ]
   end
 

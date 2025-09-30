@@ -19,7 +19,7 @@ class PatientsController < ApplicationController
       @patients = filter_by_age(@patients, params[:start_age], params[:end_age])
     end
 
-    # Фильтрация по полному имени
+    # Фильтрация по ФИО
     if params[:full_name].present?
       @patients = filter_by_full_name(@patients, params[:full_name])
     end
@@ -103,7 +103,7 @@ def calculate_bmr
     # Расчет BMR по выбранной формуле
     bmr_result = BmrCalculation.calculate_bmr(@patient, params[:formula])
     
-    # Сохраняем расчет в историю (НЕ удаляем предыдущие!)
+    # Сохраняем расчет в историю
     calculation = @patient.bmr_calculations.create!(
       formula: params[:formula],
       result: bmr_result
